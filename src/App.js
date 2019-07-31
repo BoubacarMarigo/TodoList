@@ -1,26 +1,53 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+	state = {
+		todos: [ { title: 'Learn to code', done: true }, { title: 'Rule the world', done: false } ],
+		inputValue: ''
+	};
+
+	handleClick = () => {
+		let copyTodo = [ ...this.state.todos ];
+
+		copyTodo.push({ title: this.state.inputValue, done: false });
+
+		this.setState({ todos: copyTodo });
+	};
+
+	render = () => {
+		return (
+			<div className="mycontainer">
+				<h1>To-Do list </h1>
+				{this.state.todos.map((el, index) => {
+					return (
+						<span
+							className={el.done === true ? 'selected' : ''}
+							key={index}
+							onClick={() => {
+								!{ done };
+							}}
+						>
+							{el.title}
+						</span>
+					);
+				})}
+
+				<input
+					placeholder="Titre"
+					onChange={(event) => {
+						this.setState({ inputValue: event.target.value });
+					}}
+				/>
+				<br />
+				<button
+					onClick={(event) => {
+						this.handleClick();
+					}}
+				>
+					AJOUTER UNE TACHE
+				</button>
+			</div>
+		);
+	};
 }
-
 export default App;
